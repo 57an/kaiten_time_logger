@@ -9,15 +9,16 @@ from git.objects import Commit
 
 
 class GitManager:
-    def __init__(self, repo_path: Path):
+    def __init__(self, repo_path: Path, author: str):
         self.repo = Repo(repo_path)
+        self.author = author
 
     def _get_todays_commits(self) -> Dict[str, List[Commit]]:
         current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
         formatted_date = current_date.strftime('%Y-%m-%d %H:%M:%S.%f')
         commits_by_branch = defaultdict(list)
 
-        for commit in self.repo.iter_commits(since=formatted_date, author='stolyarov_as'):
+        for commit in self.repo.iter_commits(since=formatted_date, author=self.author):
             commits_by_branch[commit.message.split()[0]].append(commit)
         return commits_by_branch
 

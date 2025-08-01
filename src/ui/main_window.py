@@ -49,7 +49,7 @@ class Application:
     def _init_app(self):
         try:
             self.work_calendar = WorkCalendar()
-            self.git_manager = GitManager(config.git_repo_path)
+            self.git_manager = GitManager(config.git_repo_path, config.author)
             self.kaiten_api = KaitenAPI(config.kaiten_token, config.kaiten_url, config.role_id)
         except Exception as e:
             logger.error(f'Ошибка при инициализации менеджеров: {e}')
