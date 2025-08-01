@@ -10,10 +10,12 @@ class SettingsWindow(tk.Toplevel):
         super().__init__(parent)
         self.on_init_app = on_init_app
         self.title('Настройки')
-        self.geometry('400x450')
 
         window_width = 400
-        window_height = 450
+        window_height = 550
+
+        self.geometry(f'{window_width}x{window_height}')
+
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x = (screen_width - window_width) // 2
@@ -81,6 +83,17 @@ class SettingsWindow(tk.Toplevel):
         )
         role_id_entry.pack(padx=5, pady=5)
 
+        author_label = ttk.Label(self, text='Автор коммита в git:', style='Settings.TLabel')
+        author_label.pack(padx=5, pady=5)
+        self.author = tk.StringVar(value=config.author)
+        author_entry = ttk.Entry(
+            self,
+            textvariable=self.author,
+            width=15,
+            style='Settings.TEntry',
+        )
+        author_entry.pack(padx=5, pady=5)
+
         save_button = ttk.Button(
             self,
             text='Сохранить',
@@ -91,7 +104,12 @@ class SettingsWindow(tk.Toplevel):
 
     def save_settings(self):
         Config.save_config(
-            self.token_var.get(), self.time_var.get(), self.repo_var.get(), self.url_var.get(), self.role_id.get()
+            self.token_var.get(),
+            self.time_var.get(),
+            self.repo_var.get(),
+            self.url_var.get(),
+            self.role_id.get(),
+            self.author.get(),
         )
         self.on_init_app()
         self.destroy()
