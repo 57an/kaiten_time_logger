@@ -110,7 +110,7 @@ class SettingsWindow(tk.Toplevel):
             self.time_var.get(),
             self.repo_var.get(),
             self.url_var.get(),
-            next(k for k, v in self.user_roles.items() if v == self.role_var.get()),
+            next(role_id for role_id, role_name in self.user_roles.items() if role_name == self.role_var.get()),
             self.author.get(),
         )
         self.on_init_app()
