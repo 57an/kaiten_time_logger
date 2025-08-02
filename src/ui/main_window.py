@@ -134,7 +134,8 @@ class Application:
 
     def setup_tray(self):
         menu = (
-            pystray.MenuItem('Показать', self.show_window),
+            pystray.MenuItem('Учет времени', self.show_window),
+            pystray.MenuItem('Настройки', self.show_settings),
             pystray.MenuItem('Выход', self.quit_application),
         )
         self.tray_icon = pystray.Icon(
