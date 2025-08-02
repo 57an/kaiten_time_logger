@@ -6,7 +6,7 @@ from src.core.config import Config, config
 
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, parent, on_init_app: Callable, user_roles):
+    def __init__(self, parent, on_init_app: Callable, user_roles: list[dict[int, str]]):
         super().__init__(parent)
         self.on_init_app = on_init_app
         self.user_roles = user_roles
