@@ -6,9 +6,10 @@ from src.core.config import Config, config
 
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, parent, on_init_app: Callable):
+    def __init__(self, parent, on_init_app: Callable, user_roles):
         super().__init__(parent)
         self.on_init_app = on_init_app
+        self.user_roles = user_roles
         self.title('Настройки')
 
         window_width = 400
