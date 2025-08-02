@@ -73,16 +73,17 @@ class SettingsWindow(tk.Toplevel):
         )
         time_entry.pack(padx=5, pady=5)
 
-        role_id_label = ttk.Label(self, text='Идентификатор Роли в Kaiten:', style='Settings.TLabel')
-        role_id_label.pack(padx=5, pady=5)
-        self.role_id = tk.IntVar(value=config.role_id)
-        role_id_entry = ttk.Entry(
+        # Add combobox for user roles
+        role_label = ttk.Label(self, text='Выберите роль пользователя:', style='Settings.TLabel')
+        role_label.pack(padx=5, pady=5)
+        self.role_var = tk.StringVar()
+        role_combobox = ttk.Combobox(
             self,
-            textvariable=self.role_id,
-            width=10,
-            style='Settings.TEntry',
+            textvariable=self.role_var,
+            values=sorted(role for role in user_roles.values()),
         )
-        role_id_entry.pack(padx=5, pady=5)
+        role_combobox.pack(padx=5, pady=5)
+        self.role_var.set(user_roles[config.role_id])
 
         author_label = ttk.Label(self, text='Автор коммита в git:', style='Settings.TLabel')
         author_label.pack(padx=5, pady=5)
@@ -109,7 +110,7 @@ class SettingsWindow(tk.Toplevel):
             self.time_var.get(),
             self.repo_var.get(),
             self.url_var.get(),
-            self.role_id.get(),
+            next(k for k, v in self.user_roles.items() if v == self.role_var.get()),
             self.author.get(),
         )
         self.on_init_app()
